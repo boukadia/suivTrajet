@@ -8,10 +8,10 @@ require('dotenv').config();
 
 // Import routes
 const userRoutes = require('./routes/userRoutes');
-const truckRoutes = require('./routes/truckRoutes');
-const trailerRoutes = require('./routes/trailerRoutes');
-const tyreRoutes = require('./routes/tyreRoutes');
-const tripRoutes = require('./routes/tripRoutes');
+const camionRoutes = require('./routes/camionRoutes');
+const remorqueRoutes = require('./routes/remorqueRoutes');
+const pneuRoutes = require('./routes/pneuRoutes');
+const trajetRoutes = require('./routes/trajetRoutes');
 
 // Import middleware
 const { errorHandler } = require('./middlewares/errorHandler');
@@ -29,11 +29,12 @@ connectDB();
 
 
 // Routes
+
 app.use('/api/users', userRoutes);
-app.use('/api/trucks', truckRoutes);
-app.use('/api/trailers', trailerRoutes);
-app.use('/api/tyres', tyreRoutes);
-app.use('/api/trips', tripRoutes);
+app.use('/api/camions', camionRoutes);
+app.use('/api/remorques', remorqueRoutes);
+app.use('/api/pneus', pneuRoutes);
+app.use('/api/trajets', trajetRoutes);
 
 // Health check route
 app.get('/', (req, res) => {
