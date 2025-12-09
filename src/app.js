@@ -7,14 +7,12 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 // Import routes
-const userRoutes = require('./routes/userRoutes');
-const camionRoutes = require('./routes/camionRoutes');
-const remorqueRoutes = require('./routes/remorqueRoutes');
-const pneuRoutes = require('./routes/pneuRoutes');
-const trajetRoutes = require('./routes/trajetRoutes');
+const userRoutes = require('./routes/api/userRoutes');
+const camionRoutes = require('./routes/api/camionRoutes');
+const remorqueRoutes = require('./routes/api/remorqueRoutes');
+const pneuRoutes = require('./routes/api/pneuRoutes');
+const trajetRoutes = require('./routes/api/trajetRoutes');
 
-// Import middleware
-const { errorHandler } = require('./middlewares/errorHandler');
 
 // Initialize app
 const app = express();
@@ -41,8 +39,7 @@ app.get('/', (req, res) => {
     res.send('Backend Fleet Management API is running 🚀');
 });
 
-// Error handler middleware
-app.use(errorHandler);
+
 
 // Start server
 const PORT = process.env.PORT || 5000;
