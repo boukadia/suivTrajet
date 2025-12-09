@@ -45,7 +45,8 @@ exports.modifierCamion = async (req, res) => {
 // Supprimer un camion
 exports.supprimerCamion = async (req, res) => {
     try {
-        await Camion.findByIdAndDelete(req.params.id);
+        const camion = await Camion.findByIdAndDelete(req.params.id);
+        if (!camion) return res.status(404).json({ message: 'Camion non trouvé' });
         res.json({ message: 'Camion supprimé' });
     } catch (error) {
         res.status(500).json({ message: error.message });

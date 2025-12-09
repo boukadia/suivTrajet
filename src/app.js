@@ -11,6 +11,7 @@ const camionRoutes = require('./routes/api/camionRoutes');
 const remorqueRoutes = require('./routes/api/remorqueRoutes');
 const pneuRoutes = require('./routes/api/pneuRoutes');
 const trajetRoutes = require('./routes/api/trajetRoutes');
+const maintenanceRoutes = require('./routes/api/maintenanceRoutes');
 
 
 // Initialize app
@@ -36,6 +37,7 @@ app.use('/api/camions', camionRoutes);
 app.use('/api/remorques', remorqueRoutes);
 app.use('/api/pneus', pneuRoutes);
 app.use('/api/trajets', trajetRoutes);
+app.use('/api/maintenances', maintenanceRoutes);
 
 // Health check route
 app.get('/', (req, res) => {
