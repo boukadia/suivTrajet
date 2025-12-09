@@ -16,6 +16,13 @@ userSchema.pre('save', async function() {
   }
 });
 
+userSchema.pre('findOneAndUpdate', async function() {
+  const update = this.getUpdate();
+  if (update.motDePasse) {
+    update.motDePasse = await bcrypt.hash(update.motDePasse, 10);
+  }
+});
+
 userSchema.methods.comparerMotDePasse = async function(motDePasse) {
   return bcrypt.compare(motDePasse, this.motDePasse);
 };

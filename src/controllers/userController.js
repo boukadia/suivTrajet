@@ -53,6 +53,10 @@ exports.obtenirUser = async (req, res) => {
 // Modifier un user
 exports.modifierUser = async (req, res) => {
     try {
+        // Si le mot de passe est modifié, le hasher
+        if (req.body.motDePasse) {
+            req.body.motDePasse = await bcrypt.hash(req.body.motDePasse, 10);
+        }
         const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.json(user);
     } catch (error) {
