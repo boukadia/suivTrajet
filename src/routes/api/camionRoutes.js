@@ -1,20 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const {listerCamions,ajouterCamion,obtenirCamion,modifierCamion,supprimerCamion} = require('../../controllers/camionController');
+const {authenticate, authorize} = require('../../middlewares/auth');
+const {validateAjouterCamion, validateModifierCamion, validateId} = require('../../validator/camionValidator');
 
 // Liste des camions
-router.get('/', listerCamions);
+router.get('/', authenticate, listerCamions);
 
 // Ajouter un camion
-router.post('/', ajouterCamion);
+router.post('/', authenticate, authorize('Admin'), validateAjouterCamion, ajouterCamion);
 
 // Obtenir un camion par ID
-router.get('/:id', obtenirCamion);
+router.get('/:id', authenticate, validateId, obtenirCamion);
 
 // Modifier un camion
-router.put('/:id', modifierCamion);
+router.put('/:id', authenticate, authorize('Admin'), validateModifierCamion, modifierCamion);
 
 // Supprimer un camion
-router.delete('/:id', supprimerCamion);
+router.delete('/:id', authenticate, authorize('Admin'), validateId, supprimerCamion);
 
 module.exports = router;

@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const tokenBlacklist = new Set();
 
+
 exports.tokenBlacklist = tokenBlacklist;
 const generateToken = (user) => {
   return jwt.sign({
@@ -24,7 +25,7 @@ exports.listerUsers = async (req, res) => {
 };
 
 // Créer un user
-exports.creerUser = async (req, res) => {
+exports.register = async (req, res) => {
     try {
         const { nom, email, motDePasse, role } = req.body;
 

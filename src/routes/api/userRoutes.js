@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const {listerUsers,creerUser,obtenirUser,modifierUser,supprimerUser,loginUser, logOut} = require('../../controllers/userController');
+const {listerUsers,register,obtenirUser,modifierUser,supprimerUser,loginUser, logOut, toggleUserStatus} = require('../../controllers/userController');
 const {authenticate,authorize} = require('../../middlewares/auth');
+const {validateRegister,validateLogin}=require('../../validator/userValidator');
 
 
 // Liste de tous les users (Admin)
 router.get('/',authenticate,authorize("Admin"), listerUsers);
 
 // Créer un user
-router.post('/', creerUser);
+router.post('/', register);
 
 // Obtenir un user par ID
 router.get('/:id',authenticate,authorize("Admin") ,obtenirUser);
@@ -20,9 +21,12 @@ router.put('/:id', modifierUser);
 router.delete('/:id',authenticate,authorize("Admin") , supprimerUser);
 
 // Login
-router.post('/login', loginUser);
+router.post('/login',validateLogin, loginUser);
 
 //logout
 router.post('/logout', authenticate,logOut )
+
+//Status
+router.get('/status/:id', authenticate, authorize("Admin"),toggleUserStatus )
 
 module.exports = router;
