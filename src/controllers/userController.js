@@ -79,10 +79,10 @@ exports.loginUser = async (req, res) => {
     try {
         const { email, motDePasse } = req.body;
         const user = await User.findOne({ email });
-        if (!user) return res.status(400).json({ message: 'Email ou mot de passe invalide' });
+        if (!user) return res.status(400).json({ message: 'Email  invalide' });
 
         const valide = await user.comparerMotDePasse(motDePasse);
-        if (!valide) return res.status(400).json({ message: 'Email ou mot de passe invalide' });
+        if (!valide) return res.status(400).json({ message: ' mot de passe invalide' });
         const token = generateToken(user);  
         res.json({ token, user:{    
             _id: user._id,

@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const {listerUsers,creerUser,obtenirUser,modifierUser,supprimerUser,loginUser} = require('../../controllers/userController');
+const {authenticate,authorize} = require('../../middlewares/auth');
+
 
 // Liste de tous les users (Admin)
-router.get('/', listerUsers);
+router.get('/',authenticate,authorize("Admin"), listerUsers);
 
 // Créer un user
 router.post('/', creerUser);
