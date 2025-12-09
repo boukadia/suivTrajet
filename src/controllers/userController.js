@@ -33,7 +33,7 @@ exports.creerUser = async (req, res) => {
         const token = generateToken(user);
         console.log(user);
 
-        res.status(201).json({ token, user });
+        res.json(token,{userId: user._id, nom: user.nom, email: user.email, role: user.role, status: user.status });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
@@ -44,7 +44,7 @@ exports.obtenirUser = async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
         if (!user) return res.status(404).json({ message: 'User non trouvé' });
-        res.json(user);
+        res.json({userId: user._id, nom: user.nom, email: user.email, role: user.role, status: user.status });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -58,7 +58,7 @@ exports.modifierUser = async (req, res) => {
             req.body.motDePasse = await bcrypt.hash(req.body.motDePasse, 10);
         }
         const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        res.json(user);
+        res.json({userId: user._id, nom: user.nom, email: user.email, role: user.role, status: user.status });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
