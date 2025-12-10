@@ -72,6 +72,44 @@ exports.modifierMaintenance = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 };
+exports.modifierStatusMaintenance=async(req,res)=>{
+    try {
+        const maintenance = await Maintenance.findByIdAndUpdate(
+            req.params.id,
+            { status: req.body.status },
+            { new: true, runValidators: true }
+        );
+
+        if (!maintenance) {
+            return res.status(404).json({ message: 'Maintenance non trouvée' });
+        } 
+        if(req.body.status==='Effectuée'){
+            // Mettre à jour le kilométrage du véhicule concerné
+            if(maintenance.camion){
+                const Camion = require('../models/Camion');
+               const camion= await Camion.findByIdAndUpdate(maintenance.camion, { kilometrage: maintenance.kilometrage });
+               camion.status='Disponible';
+               await camion.save();
+            }
+            if(maintenance.remorque){
+                const Remorque = require('../models/Remorque');
+              const remorque=  await Remorque.findByIdAndUpdate(maintenance.remorque, { kilometrage: maintenance.kilometrage });
+                remorque.status='Disponible';
+                await remorque.save();
+            }
+            if(maintenance.pneu){
+                const Pneu = require('../models/Pneu');
+                const pneu=await Pneu.findByIdAndUpdate(maintenance.pneu, { kilometrage: maintenance.kilometrage });
+                pneu.status='Disponible';
+                await pneu.save();
+
+            }
+        }
+        res.json(maintenance);  
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
 
 // Supprimer une maintenance
 exports.supprimerMaintenance = async (req, res) => {
