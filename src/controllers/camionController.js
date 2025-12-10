@@ -52,3 +52,31 @@ exports.supprimerCamion = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+// Changer le status d'un camion
+exports.changerStatusCamion = async (req, res) => {
+    try {
+        const { status } = req.body;
+        
+        if (!status) {
+            return res.status(400).json({ message: 'Status requis' });
+        }
+        
+        const camion = await Camion.findByIdAndUpdate(
+            req.params.id,
+            { status },
+            { new: true, runValidators: true }
+        );
+        
+        if (!camion) {
+            return res.status(404).json({ message: 'Camion non trouvé' });
+        }
+        
+        res.json({ 
+            message: `Status changé en ${status}`,
+            camion 
+        });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};

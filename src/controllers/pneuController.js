@@ -51,3 +51,31 @@ exports.supprimerPneu = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+// Changer le statut d'un pneu
+exports.changerStatutPneu = async (req, res) => {
+    try {
+        const { statut } = req.body;
+        
+        if (!statut) {
+            return res.status(400).json({ message: 'Statut requis' });
+        }
+        
+        const pneu = await Pneu.findByIdAndUpdate(
+            req.params.id,
+            { statut },
+            { new: true, runValidators: true }
+        );
+        
+        if (!pneu) {
+            return res.status(404).json({ message: 'Pneu non trouvé' });
+        }
+        
+        res.json({ 
+            message: `Statut changé en ${statut}`,
+            pneu 
+        });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};

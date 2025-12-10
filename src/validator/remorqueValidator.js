@@ -26,10 +26,10 @@ exports.validateAjouterRemorque = [
         .isNumeric()
         .withMessage('La capacité doit être un nombre'),
 
-    body('etat')
+    body('status')
         .optional()
-        .isIn(['Disponible', 'En maintenance'])
-        .withMessage('L\'état doit être: Disponible ou En maintenance'),
+        .isIn(['Disponible', 'Hors Service','En trajet', 'En maintenance'])
+        .withMessage('Le statut doit être: Disponible, Hors Service, En trajet ou En maintenance'),
 
     checkValidationErrors
 ];
@@ -55,10 +55,10 @@ exports.validateModifierRemorque = [
         .isNumeric()
         .withMessage('La capacité doit être un nombre'),
 
-    body('etat')
+   body('status')
         .optional()
-        .isIn(['Disponible', 'En maintenance'])
-        .withMessage('L\'état doit être: Disponible ou En maintenance'),
+        .isIn(['Disponible', 'Hors Service','En trajet', 'En maintenance'])
+        .withMessage('Le statut doit être: Disponible, Hors Service, En trajet ou En maintenance'),
 
     checkValidationErrors
 ];

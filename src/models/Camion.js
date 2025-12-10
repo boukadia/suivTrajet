@@ -5,6 +5,7 @@ const camionSchema = new mongoose.Schema({
     marque: { type: String },
     modele: { type: String },
     kilometrage: { type: Number, default: 0 },
+    status: { type: String, enum: ['Disponible', 'Hors Service','En trajet', 'En maintenance'], default: 'Disponible' },
     consommationCarburant: { type: Number, default: 0 },
     pneus: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Pneu' }],
 }, { timestamps: { createdAt: 'dateCreation', updatedAt: 'dateMiseAJour' } });

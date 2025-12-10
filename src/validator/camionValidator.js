@@ -35,6 +35,10 @@ exports.validateAjouterCamion = [
         .optional()
         .isNumeric()
         .withMessage('La consommation de carburant doit être un nombre'),
+    body('status')
+        .optional()
+        .isIn(['Disponible', 'Hors Service','En trajet', 'En maintenance'])
+        .withMessage('Le statut doit être: Disponible, Hors Service, En trajet ou En maintenance'),
 
     checkValidationErrors
 ];
@@ -59,6 +63,10 @@ exports.validateModifierCamion = [
         .optional()
         .isString()
         .withMessage('Le modèle doit être du texte'),
+    body('status')
+        .optional()
+        .isIn(['Disponible', 'Hors Service','En trajet', 'En maintenance'])
+        .withMessage('Le statut doit être: Disponible, Hors Service, En trajet ou En maintenance'),
 
     body('kilometrage')
         .optional()

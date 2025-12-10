@@ -51,3 +51,31 @@ exports.supprimerRemorque = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+// Changer le status d'une remorque
+exports.changerStatusRemorque = async (req, res) => {
+    try {
+        const { status } = req.body;
+        
+        if (!status) {
+            return res.status(400).json({ message: 'Status requis' });
+        }
+        
+        const remorque = await Remorque.findByIdAndUpdate(
+            req.params.id,
+            { status },
+            { new: true, runValidators: true }
+        );
+        
+        if (!remorque) {
+            return res.status(404).json({ message: 'Remorque non trouvée' });
+        }
+        
+        res.json({ 
+            message: `Status changé en ${status}`,
+            remorque 
+        });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};

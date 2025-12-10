@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {listerRemorques,ajouterRemorque,obtenirRemorque,modifierRemorque,supprimerRemorque} = require('../../controllers/remorqueController');
+const {listerRemorques,ajouterRemorque,obtenirRemorque,modifierRemorque,supprimerRemorque,changerStatusRemorque} = require('../../controllers/remorqueController');
 const {authenticate, authorize} = require('../../middlewares/auth');
 const {validateAjouterRemorque, validateModifierRemorque, validateId} = require('../../validator/remorqueValidator');
 
@@ -18,5 +18,8 @@ router.put('/:id', authenticate, authorize('Admin'), validateModifierRemorque, m
 
 // Supprimer une remorque
 router.delete('/:id', authenticate, authorize('Admin'), validateId, supprimerRemorque);
+
+// Changer le status d'une remorque
+router.put('/:id/status', authenticate, authorize('Admin'), changerStatusRemorque);
 
 module.exports = router;

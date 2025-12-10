@@ -57,3 +57,34 @@ exports.supprimerTrajet = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+// Changer l'état d'un trajet
+exports.changerEtatTrajet = async (req, res) => {
+    try {
+        const { etat } = req.body;
+        
+        if (!etat) {
+            return res.status(400).json({ message: 'État requis' });
+        }
+        
+        const trajet = await Trajet.findByIdAndUpdate(
+            req.params.id,
+            { etat },
+            { new: true, runValidators: true }
+        )
+        .populate('chauffeur')
+        .populate('camion')
+        .populate('remorque');
+        
+        if (!trajet) {
+            return res.status(404).json({ message: 'Trajet non trouvé' });
+        }
+        
+        res.json({ 
+            message: `État changé en ${etat}`,
+            trajet 
+        });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
