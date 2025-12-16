@@ -55,6 +55,8 @@ exports.supprimerRemorque = async (req, res) => {
 // Changer le status d'une remorque
 exports.changerStatusRemorque = async (req, res) => {
     try {
+        console.log("testttt");
+        
         const { status } = req.body;
         
         if (!status) {

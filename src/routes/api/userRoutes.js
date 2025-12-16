@@ -27,6 +27,6 @@ router.post('/login',validateLogin, loginUser);
 router.post('/logout', authenticate,logOut )
 
 //Status
-router.get('/status/:id', authenticate, authorize("Admin"),toggleUserStatus )
+router.put('/status/:id', authenticate, authorize("Admin"),toggleUserStatus )
 
 module.exports = router;

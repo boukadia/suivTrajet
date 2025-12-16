@@ -8,7 +8,8 @@ const {
     supprimerMaintenance,
     obtenirMaintenancesParCamion,
     obtenirMaintenancesParRemorque,
-    obtenirMaintenancesParPneu
+    obtenirMaintenancesParPneu,
+    changerStatusMaintenance
 } = require('../../controllers/maintenanceController');
 const {authenticate, authorize} = require('../../middlewares/auth');
 const {
@@ -43,5 +44,9 @@ router.get('/remorque/:remorqueId', authenticate, validateRemorqueId, obtenirMai
 
 // Obtenir les maintenances par pneu
 router.get('/pneu/:pneuId', authenticate, validatePneuId, obtenirMaintenancesParPneu);
+
+//status du maintenance
+ router.put('/status/:id', authenticate, authorize('Admin'), changerStatusMaintenance);
+
 
 module.exports = router;

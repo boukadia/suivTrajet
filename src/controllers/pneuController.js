@@ -52,18 +52,18 @@ exports.supprimerPneu = async (req, res) => {
     }
 };
 
-// Changer le statut d'un pneu
-exports.changerStatutPneu = async (req, res) => {
+// Changer le status d'un pneu
+exports.changerStatusPneu = async (req, res) => {
     try {
-        const { statut } = req.body;
+        const { status } = req.body;
         
-        if (!statut) {
-            return res.status(400).json({ message: 'Statut requis' });
+        if (!status) {
+            return res.status(400).json({ message: 'status requis' });
         }
         
         const pneu = await Pneu.findByIdAndUpdate(
             req.params.id,
-            { statut },
+            { status },
             { new: true, runValidators: true }
         );
         
@@ -72,7 +72,59 @@ exports.changerStatutPneu = async (req, res) => {
         }
         
         res.json({ 
-            message: `Statut changé en ${statut}`,
+            message: `status changé en ${status}`,
+            pneu 
+        });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+// Assigner un pneu à un camion
+exports.assignerPneuCamion = async (req, res) => {
+    try {
+        const { camionId, kilometrageInstallation } = req.body;
+        
+        const pneu = await Pneu.findById(req.params.id);
+        if (!pneu) {
+            return res.status(404).json({ message: 'Pneu non trouvé' });
+        }
+        
+        pneu.camion = camionId;
+        pneu.remorque = null;
+        if (kilometrageInstallation) pneu.kilometrageInstallation = kilometrageInstallation;
+        pneu.dateInstallation = new Date();
+        
+        await pneu.save();
+        
+        res.json({ 
+            message: 'Pneu assigné au camion',
+            pneu 
+        });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+// Assigner un pneu à une remorque
+exports.assignerPneuRemorque = async (req, res) => {
+    try {
+        const { remorqueId, kilometrageInstallation } = req.body;
+        
+        const pneu = await Pneu.findById(req.params.id);
+        if (!pneu) {
+            return res.status(404).json({ message: 'Pneu non trouvé' });
+        }
+        
+        pneu.remorque = remorqueId;
+        pneu.camion = null;
+        if (kilometrageInstallation) pneu.kilometrageInstallation = kilometrageInstallation;
+        pneu.dateInstallation = new Date();
+        
+        await pneu.save();
+        
+        res.json({ 
+            message: 'Pneu assigné à la remorque',
             pneu 
         });
     } catch (error) {

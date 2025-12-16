@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const maintenanceSchema = new mongoose.Schema({
   typeMaintenance: {
-    type: String,
+    type: String,enum: ['Pneu', 'Vidange'],
     required: true, 
   },
   description: {
@@ -19,7 +19,7 @@ const maintenanceSchema = new mongoose.Schema({
   cout: {
     type: Number,
   },
-  statut: {
+  status: {
     type: String,
     enum: ['Prévu', 'Effectuée', 'Annulée'],
     default: 'Prévu',
@@ -42,7 +42,7 @@ const maintenanceSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true, 
+    required: false, 
   },
 }, {
   timestamps: true, 

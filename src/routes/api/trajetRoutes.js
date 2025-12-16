@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {listerTrajets,ajouterTrajet,obtenirTrajet,modifierTrajet,supprimerTrajet,changerEtatTrajet} = require('../../controllers/trajetController');
+const {listerTrajets,ajouterTrajet,obtenirTrajet,modifierTrajet,supprimerTrajet,changerStatusTrajet,terminerTrajet} = require('../../controllers/trajetController');
 const {authenticate, authorize} = require('../../middlewares/auth');
 const {validateAjouterTrajet, validateModifierTrajet, validateId} = require('../../validator/trajetValidator');
 
@@ -20,6 +20,9 @@ router.put('/:id', authenticate, validateModifierTrajet, modifierTrajet);
 router.delete('/:id', authenticate, authorize('Admin'), validateId, supprimerTrajet);
 
 // Changer l'état d'un trajet
-router.put('/:id/etat', authenticate, changerEtatTrajet);
+router.put('/status/:id', authenticate, changerStatusTrajet);
+
+// Terminer un trajet
+router.put('/:id/terminer', authenticate, terminerTrajet);
 
 module.exports = router;

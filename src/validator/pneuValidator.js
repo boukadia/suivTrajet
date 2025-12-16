@@ -20,7 +20,7 @@ exports.validateAjouterPneu = [
         .isString()
         .withMessage('Le modèle doit être du texte'),
 
-    body('etat')
+    body('status')
         .optional()
         .isIn(['Neuf', 'Usé', 'A remplacer'])
         .withMessage('L\'état doit être: Neuf, Usé ou A remplacer'),
@@ -49,7 +49,7 @@ exports.validateModifierPneu = [
         .isString()
         .withMessage('Le modèle doit être du texte'),
 
-    body('etat')
+    body('status')
         .optional()
         .isIn(['Neuf', 'Usé', 'A remplacer'])
         .withMessage('L\'état doit être: Neuf, Usé ou A remplacer'),

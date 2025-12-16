@@ -12,9 +12,9 @@ const checkValidationErrors = (req, res, next) => {
 exports.validateAjouterMaintenance = [
     body('typeMaintenance')
         .notEmpty()
-        .withMessage('Le type de maintenance est obligatoire')
-        .isString()
-        .withMessage('Le type de maintenance doit être du texte'),
+        .isIn(['Pneu', 'Vidange'])
+
+        .withMessage('Le type de maintenance est obligatoire'),
 
     body('description')
         .optional()

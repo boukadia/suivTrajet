@@ -7,7 +7,6 @@ const remorqueSchema = new mongoose.Schema({
      kilometrage: Number, // kilometrage actuel de la remorque
     dernierControleKm: Number,
     dernierControleDate: Date,
-    pneus: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Pneu' }],
     status: { type: String, enum: ['Disponible', 'Hors Service','En trajet', 'En maintenance'], default: 'Disponible' },
 }, { timestamps: { createdAt: 'dateCreation', updatedAt: 'dateMiseAJour' } });
 

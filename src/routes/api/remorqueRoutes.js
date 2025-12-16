@@ -20,6 +20,9 @@ router.put('/:id', authenticate, authorize('Admin'), validateModifierRemorque, m
 router.delete('/:id', authenticate, authorize('Admin'), validateId, supprimerRemorque);
 
 // Changer le status d'une remorque
-router.put('/:id/status', authenticate, authorize('Admin'), changerStatusRemorque);
+// router.put('/:id/status', authenticate, authorize('Admin'), changerStatusRemorque);
+
+//changer le stats du remorque
+router.put('/status/:id', authenticate, authorize('Admin'), changerStatusRemorque);
 
 module.exports = router;

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {listerPneus,ajouterPneu,obtenirPneu,modifierPneu,supprimerPneu,changerStatutPneu} = require('../../controllers/pneuController');
+const {listerPneus,ajouterPneu,obtenirPneu,modifierPneu,supprimerPneu,changerStatusPneu} = require('../../controllers/pneuController');
 const {authenticate, authorize} = require('../../middlewares/auth');
 const {validateAjouterPneu, validateModifierPneu, validateId} = require('../../validator/pneuValidator');
 
@@ -20,6 +20,6 @@ router.put('/:id', authenticate, authorize('Admin'), validateModifierPneu, modif
 router.delete('/:id', authenticate, authorize('Admin'), validateId, supprimerPneu);
 
 // Changer le statut d'un pneu
-router.put('/:id/statut', authenticate, authorize('Admin'), changerStatutPneu);
+router.put('/:id/status', authenticate, authorize('Admin'), changerStatusPneu);
 
 module.exports = router;

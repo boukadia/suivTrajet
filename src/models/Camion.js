@@ -13,7 +13,6 @@ const camionSchema = new mongoose.Schema({
   dernierControleDate: Date,
     status: { type: String, enum: ['Disponible', 'Hors Service','En trajet', 'En maintenance'], default: 'Disponible' },
     consommationCarburant: { type: Number, default: 0 },
-    pneus: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Pneu' }],
 }, { timestamps: { createdAt: 'dateCreation', updatedAt: 'dateMiseAJour' } });
 
 module.exports = mongoose.model('Camion', camionSchema);

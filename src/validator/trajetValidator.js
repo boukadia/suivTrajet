@@ -39,7 +39,7 @@ exports.validateAjouterTrajet = [
         .isString()
         .withMessage('Le point d\'arrivée doit être du texte'),
 
-    body('etat')
+    body('status')
         .optional()
         .isIn(['A faire', 'En cours', 'Terminé'])
         .withMessage('L\'état doit être: A faire, En cours ou Terminé'),
@@ -98,7 +98,7 @@ exports.validateModifierTrajet = [
         .isString()
         .withMessage('Le point d\'arrivée doit être du texte'),
 
-    body('etat')
+    body('status')
         .optional()
         .isIn(['A faire', 'En cours', 'Terminé'])
         .withMessage('L\'état doit être: A faire, En cours ou Terminé'),

@@ -20,6 +20,6 @@ router.put('/:id', authenticate, authorize('Admin'), validateModifierCamion, mod
 router.delete('/:id', authenticate, authorize('Admin'), validateId, supprimerCamion);
 
 // Changer le status d'un camion
-router.put('/:id/status', authenticate, authorize('Admin'), changerStatusCamion);
+router.put('/status/:id', authenticate, authorize('Admin'), changerStatusCamion);
 
 module.exports = router;
